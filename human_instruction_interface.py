@@ -59,7 +59,7 @@ def input_components():
         components.append(gr.Textbox(label="Language", value="English", elem_id="language"))
         components.append(gr.Textbox(label="Domain", value="Machine Learning", elem_id="domain"))
         components.append(gr.Textbox(label="Author", value="Atlas Unified", elem_id="author"))
-        components.append(gr.Textbox(label="Filename", value="output2.jsonl", elem_id="filename"))
+        components.append(gr.Textbox(label="Filename", value="output-test.jsonl", elem_id="filename"))
 
     return components
 
@@ -75,10 +75,131 @@ jsonl_interface = gr.Interface(
     description="The generated JSONL object in raw form."
 )
 
-test=gr.Markdown("test")
+qap=gr.Markdown("""
+# Example of a Question-Answer Pair
+
+{
+"id": "G-500k-dataset-000001",
+"name": "Question-Answer Pairs",
+"instruction": "Create a language model using AI algorithms and question-answer pairs to identify correct answers to related input.",
+"instances": [
+{"input": "What is AI?", "output": "Artificial Intelligence is a branch of computer science that uses algorithms and AI technologies to simulate intelligent behavior."},
+{"input": "What is Machine Learning?", "output": "Machine learning is a type of artificial intelligence that uses algorithms to learn from data, identify patterns and make decisions without being explicitly programmed to do so."},
+
+],
+"is_classification": "False",
+"labels": ["Machine Learning"],
+"source": "Machine Learning Research Papers",
+"complexity": "Intermediate",
+"tags": ["Artificial Intelligence", "Machine Learning", "Question-Answer Pairs"],
+"timestamp": "2023-03-29T12:54:00Z",
+"language": "English",
+"domain": "AI",
+"author": "Atlas Unified"
+}
+
+""")
+
+clt=gr.Markdown("""
+# Example of Cloze Test
+
+{
+"id": "G-500k-dataset-000001",
+"name": "Cloze Test",
+"instruction": "Initialize a model that outputs 'cloze' as an answer, such asfill-in-the-blank questions. The model should take an incomplete text sentence as an input and a full,finalised sentence as an output. Use a 500K dataset for training and testing.",
+"instances": [
+{"input": "John went to the ____ to buy some milk.", "output": "John went to the supermarket to buy some milk."},
+{"input": "Jane's mom gave her a ____ of chocolates.", "output": "Jane's mom gave her a box of chocolates."},
+
+],
+"is_classification": "False",
+"labels": [],
+"source": "https://en.wikipedia.org/wiki/Cloze_test",
+"complexity": "High",
+"tags": ["cloze test", "fill-in-the-blank", "natural language processing"], 
+"timestamp": "2023-03-29T12:54:00Z",
+"language": "English",
+"domain": "Machine Learning",
+"author": "Atlas Unified"
+}
+    
+    """)
+
+cod=gr.Markdown("""
+# Example of Conversational Dialogue
+
+{
+"id": "G-500k-dataset-000001",
+"name": "Conversational Dialogue",
+"instruction": "Create a language model using AI algorithms and conversational dialogue to generate natural-sounding responses to user queries.",
+"instances": [
+{"input": "What is the weather like today?", "output": "It's sunny and 75 outside today! Sun protection is adviseable today."},
+{"input": "How do I cancel my order?", "output": "We will head over to their website and begin the process of cancellation."},
+
+],
+"is_classification": "False",
+"labels": ["Artificial Intelligence", "Machine Learning"],
+"source": "Conversational Datasets",
+"complexity": "low",
+"tags": ["Artificial Intelligence", "Dialogue", "Natural Language Generation"],
+"timestamp": "2023-03-29T12:54:00Z",
+"language": "English",
+"domain": "AI",
+"author": "Atlas Unified"
+}
+    
+    """)
+
+muc=gr.Markdown("""
+# Example of Multiple Choice
+
+{
+"id": "G-500k-dataset-000001",
+"name": "Multiple Choice",
+"instruction": "This task consists of labeled data consisting of a set of multiple choices and correct input answers. Specify the set of input, output and labels and any additional information such as tags, language and domain as required.",
+"instances": [
+"instruction": "This task consists of labeled data with descriptions of machine learning algorithms and their corresponding names. Specify the set of input, output, and labels, as well as any additional information such as tags, language, and domain as required.",
+{"input": "Which algorithm is primarily used for reducing the number of features in a dataset?", "output": "Principal Component Analysis (PCA)"},
+{"input": "Which algorithm is a popular supervised learning method for classification and regression tasks?", "output": "Support Vector Machine (SVM)"}
+
+],
+"is_classification": "True",
+"labels": ["Geography", "History"],
+"source": "Wikipedia",
+"complexity": "High",
+"tags": ["Multiple Choice", "Questions"],
+"timestamp": "2023-03-29T12:54:00Z",
+"language": "English",
+"domain": "Geography and History",
+"author": "Atlas Unified"
+}
+    
+    """)
+
+xxx=gr.Markdown("""
+# Example of xx
+
+
+    
+    """)
+
+xxx=gr.Markdown("""
+# Example of xx
+
+
+    
+    """)
+
+xxx=gr.Markdown("""
+# Example of xx
+
+
+    
+    """)
+
 
 main_interface = gr.Interface(fn=generate_jsonl, inputs=inputs, outputs=output, title="Human Dataset Developer Template", description="Fill in the fields and click 'submit' to generate and save a JSONL object. All sets created will be in the main directory and log properly. Please number your sets accordingly. If you would like to modify your file name, understand that a new list will be created if you re-name the 'output.jsonl' file.")
 
-dash = gr.TabbedInterface([main_interface, test], ["Human Interface Dashboard", "test"])
+dash = gr.TabbedInterface([main_interface, qap, clt, cod, muc], ["Human Interface Dashboard", "QAP", "CLT", "COD", "MUC"])
 
 dash.launch(inbrowser=True)
